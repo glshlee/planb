@@ -4,17 +4,29 @@ import com.glshlee.planb.config.HLogger
 import com.glshlee.planb.model.Todo
 import com.glshlee.planb.persistence.TodoRepository
 import org.springframework.stereotype.Service
+import java.lang.RuntimeException
 
 @Service
 class TodoService(
     val todoRepository: TodoRepository,
 ) {
     companion object : HLogger()
-    fun testService(): String {
-        val entity = Todo("test", "My first todo item", false)
-        logger.info("")
+
+    fun create(entity: Todo): List<Todo> {
+        // validations
+        if (entity == null) {
+            logger.warn("Entity cannot be null.")
+            throw RuntimeException("Entity cannot be null.")
+        }
+
+        if (entity.userId == null) {
+            logger.warn("Unknown user.")
+            throw RuntimeException("Unknown user.")
+        }
+
         todoRepository.save(entity)
-        val savedEntity = todoRepository.findById(entity.id!!).get()
-        return savedEntity.title
+        logger.info("Entity Id ${entity.id} is saved.")
+
+        return todoRepository.findByUserId(entity.userId)
     }
 }
