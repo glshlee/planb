@@ -17,4 +17,8 @@ class TodoService(
 
         return todoRepository.findByUserId(entity.userId)
     }
+
+    fun retrieve(userId: String) : List<Todo> {
+        return todoRepository.findByUserId(userId)
+    }
 }
