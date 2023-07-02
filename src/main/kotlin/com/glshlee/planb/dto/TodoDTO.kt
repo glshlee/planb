@@ -4,8 +4,8 @@ import com.glshlee.planb.model.Todo
 
 class TodoDTO(
     val id: String?,
-    val title: String,
-    val done: Boolean,
+    val title: String?,
+    val done: Boolean?,
 ) {
 
     constructor(entity: Todo) : this(
@@ -16,7 +16,7 @@ class TodoDTO(
 
     companion object {
         fun toEntity(dto: TodoDTO): Todo {
-            return Todo(id = dto.id, userId = "temporary-user", title = dto.title, done = dto.done)
+            return Todo(id = dto.id, userId = "temporary-user", title = dto.title ?: "test", done = dto.done ?: false)
         }
     }
 }

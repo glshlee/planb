@@ -4,6 +4,7 @@ import com.glshlee.planb.dto.ResponseDTO
 import com.glshlee.planb.dto.TodoDTO
 import com.glshlee.planb.service.TodoService
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
@@ -48,5 +49,19 @@ class TodoController(
         val response = ResponseDTO(dtos)
 
         return ResponseEntity.ok().body(response)
+    }
+
+    @DeleteMapping
+    fun deleteTodo(@RequestBody dto: TodoDTO): ResponseEntity<ResponseDTO<TodoDTO>> {
+        runCatching {
+            val entity = TodoDTO.toEntity(dto)
+            val entities = todoService.delete(entity)
+            val dtos = entities.map { TodoDTO(it) }
+            val response = ResponseDTO(dtos)
+
+            return ResponseEntity.ok().body(response)
+        }.also {
+            return ResponseEntity.badRequest().body(null)
+        }
     }
 }

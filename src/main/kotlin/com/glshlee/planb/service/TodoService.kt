@@ -35,4 +35,15 @@ class TodoService(
 
         return retrieve(entity.userId)
     }
+
+    fun delete(entity: Todo): List<Todo> {
+        runCatching {
+            todoRepository.delete(entity)
+        }.onFailure {
+            // TODO: log 출력
+            throw RuntimeException("error deleting entity ${entity.id}")
+        }
+
+        return retrieve(entity.userId)
+    }
 }
