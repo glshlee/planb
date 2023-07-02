@@ -12,8 +12,8 @@ class Todo(
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     val id: String? = null,
     val userId: String,
-    val title: String,
-    val done: Boolean,
+    var title: String,
+    var done: Boolean,
 ) {
     constructor(userId: String, title: String, done: Boolean) : this(null, userId, title, done)
 }

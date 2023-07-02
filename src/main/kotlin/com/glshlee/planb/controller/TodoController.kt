@@ -6,6 +6,7 @@ import com.glshlee.planb.service.TodoService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -33,6 +34,16 @@ class TodoController(
     fun retrieveTodoList(): ResponseEntity<ResponseDTO<TodoDTO>> {
         val temporaryUserId = "temporary-user" // temporary user id.
         val entities = todoService.retrieve(temporaryUserId)
+        val dtos = entities.map { TodoDTO(it) }
+        val response = ResponseDTO(dtos)
+
+        return ResponseEntity.ok().body(response)
+    }
+
+    @PutMapping
+    fun updateTodo(@RequestBody dto: TodoDTO): ResponseEntity<ResponseDTO<TodoDTO>> {
+        val entity = TodoDTO.toEntity(dto)
+        val entities = todoService.update(entity)
         val dtos = entities.map { TodoDTO(it) }
         val response = ResponseDTO(dtos)
 
