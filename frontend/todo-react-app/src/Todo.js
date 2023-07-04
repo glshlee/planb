@@ -5,6 +5,12 @@ import DeletedOutlined from "@mui/icons-material/DeleteOutlined"
 const Todo = (props) => {
     const [item, setItem] = useState(props.item);
 
+    const deleteItem = props.deleteItem;
+
+    const deleteEventHandler = () => {
+        deleteItem(item)
+    };
+
     return (
         <ListItem>
             <Checkbox checked={item.done} />
@@ -20,7 +26,7 @@ const Todo = (props) => {
                 />
             </ListItemText>
             <ListItemSecondaryAction>
-                <IconButton aria-label="Delete Todo">
+                <IconButton aria-label="Delete Todo" onClick={deleteEventHandler}>
                     <DeletedOutlined />
                 </IconButton>
             </ListItemSecondaryAction>
