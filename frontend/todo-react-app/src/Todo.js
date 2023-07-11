@@ -28,6 +28,9 @@ const Todo = (props) => {
     }
 
     const turnOnReadOnly = (e) => {
+        if (e.nativeEvent.isComposing === true) {
+            return;
+        }
         if (e.key == "Enter") {
             setReadOnly(true);
         }

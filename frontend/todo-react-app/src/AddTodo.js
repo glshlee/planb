@@ -16,6 +16,9 @@ const AddTodo = (props) => {
     };
 
     const enterKeyEventHandler = (e) => {
+        if (e.nativeEvent.isComposing === true) {
+            return;
+        }
         if (e.key === "Enter") {
             onButtonClick();
         }

@@ -11,13 +11,13 @@ function App() {
     item.id = "ID-" + items.length;
     item.done = false;
     setItems([...items, item]);
-    console.log("items : ", items);
+    console.log("items: ", items);
   }
 
   const deleteItem = (item) => {
     const newItems = items.filter(e => e.id !== item.id);
     setItems([...newItems]);
-    console.log("items : ", items);
+    console.log("items: ", items);
   }
 
   const editItem = () => {
