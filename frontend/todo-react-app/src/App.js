@@ -20,10 +20,14 @@ function App() {
     console.log("items : ", items);
   }
 
+  const editItem = () => {
+    setItems([...items]);
+  }
+
   let todoItems = items.length > 0 && (
     <Paper style={{ margin: 16 }}>
       <List>
-        {items.map((item) => (<Todo item={item} key={item.id} deleteItem={deleteItem} />))}
+        {items.map((item) => (<Todo item={item} key={item.id} editItem={editItem} deleteItem={deleteItem} />))}
       </List>
     </Paper>
   )
