@@ -10,17 +10,16 @@ const Todo = (props) => {
     const deleteItem = props.deleteItem;
 
     const editEventHandler = (e) => {
-        item.title = e.target.value;
-        editItem();
+        setItem({...item, title: e.target.value});
     }
 
     const deleteEventHandler = () => {
-        deleteItem(item)
+        deleteItem(item);
     }
 
     const checkboxEventHandler = (e) => {
         item.done = e.target.checked;
-        editItem();
+        editItem(item);
     }
 
     const turnOffReadOnly = () => {
@@ -31,8 +30,9 @@ const Todo = (props) => {
         if (e.nativeEvent.isComposing === true) {
             return;
         }
-        if (e.key == "Enter") {
+        if (e.key == "Enter" && readOnly === false) {
             setReadOnly(true);
+            editItem(item);
         }
     }
 

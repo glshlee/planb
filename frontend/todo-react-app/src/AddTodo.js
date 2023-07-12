@@ -12,7 +12,6 @@ const AddTodo = (props) => {
 
     const onInputChange = (e) => {
         setItem({ title: e.target.value });
-        console.log(item);
     };
 
     const enterKeyEventHandler = (e) => {
